@@ -7,7 +7,7 @@
 
   <filter>
     <whitelist addUncoveredFilesFromWhitelist="true">
-      <directory suffix=".php">../src/VuFindCode</directory>
+      <directory suffix=".php">../src</directory>
     </whitelist>
   </filter>
 </phpunit>
