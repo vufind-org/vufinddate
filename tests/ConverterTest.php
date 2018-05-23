@@ -141,5 +141,17 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
                 (bool)stristr($e->getMessage(), 'parsed date was invalid')
             );
         }
+
+        // Try an object with a different configuration
+        $options = [
+            'displayDateFormat' => 'd-m-Y',
+            'displayTimeFormat' => 'H:i:s',
+            'timezone' => 'Europe/Helsinki'
+        ];
+        $date2 = new Converter($options);
+        $this->assertEquals(
+            '29-11-1973--23:34:39',
+            $date2->convertToDisplayDateAndTime('U', 123456879, '--')
+        );
     }
 }
