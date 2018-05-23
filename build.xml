@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="vufinddate" basedir="." default="main">
+  <property name="tmp" value="/tmp" />
+  <property name="package"  value="${phing.project.name}" override="true" />
+  <property name="builddir" value="${tmp}/build/${phing.project.name}" override="true" />
+  <property name="srcdir"   value="${project.basedir}" override="true" />
+  <property name="phpdoc_version" value="2.9.0" />
+
+  <!-- Main Target -->
+  <target name="main" description="main target">
+    <trycatch property="exceptionmsg">
+      <try>
+        <phingcall target="startup" />
+        <phingcall target="ci-tasks" />
+        <phingcall target="shutdown" />
+      </try>
+      <catch>
+        <phingcall target="shutdown" />
+        <fail>Unexpected error during continuous integration tasks -- ${exceptionmsg}</fail>
+      </catch>
+    </trycatch>
+  </target>
+
+  <!-- Continuous Integration Tasks -->
+  <target name="ci-tasks" description="continuous integration tasks">
+
+    <!-- Create dirs -->
+    <mkdir dir="${builddir}/reports"/>
+    <mkdir dir="${builddir}/reports/coverage"/>
+
+    <!-- Call standard tasks -->
+    <phingcall target="phpcs"/>
+    <phingcall target="phpunit"/>
+    <phingcall target="phpdoc"/>
+    <phingcall target="phpcpd"/>
+    <phingcall target="phpmd"/>
+    <phingcall target="pdepend"/>
+    <phingcall target="phploc"/>
+  </target>
+
+  <!-- Report rule violations with PHPMD (mess detector) -->
+  <target name="phpmd">
+    <exec command="${srcdir}/vendor/bin/phpmd ${srcdir}/src xml ${srcdir}/tests/phpmd.xml --exclude ${srcdir}/tests --reportfile ${builddir}/reports/phpmd.xml" />
+  </target>
+
+  <!-- Measure project with phploc -->
+  <target name="phploc">
+    <exec command="${srcdir}/vendor/bin/phploc --log-csv ${builddir}/reports/phploc.csv ${srcdir}/src" />
+  </target>
+
+  <!-- PHP_Depend code analysis -->
+  <target name="pdepend">
+    <exec command="${srcdir}/vendor/bin/pdepend --jdepend-xml=${builddir}/reports/jdepend.xml --jdepend-chart=${builddir}/reports/dependencies.svg --overview-pyramid=${builddir}/reports/pdepend-pyramid.svg ${srcdir}/src" />
+  </target>
+
+  <!-- PHP copy-and-paste detection -->
+  <target name="phpcpd">
+    <exec command="${srcdir}/vendor/bin/phpcpd --log-pmd ${builddir}/reports/pmd-cpd.xml --exclude tests ${srcdir}/src" />
+  </target>
+
+  <!-- PHP CodeSniffer -->
+  <target name="phpcbf">
+    <exec command="${srcdir}/vendor/bin/phpcbf --standard=${srcdir}/tests/phpcs.xml" escape="false" passthru="true" checkreturn="true" />
+  </target>
+  <target name="phpcs">
+    <exec command="${srcdir}/vendor/bin/phpcs --standard=${srcdir}/tests/phpcs.xml --report=checkstyle &gt; ${builddir}/reports/checkstyle.xml" escape="false" />
+  </target>
+  <target name="phpcs-console">
+    <exec command="${srcdir}/vendor/bin/phpcs --standard=${srcdir}/tests/phpcs.xml" escape="false" passthru="true" checkreturn="true" />
+  </target>
+
+  <!-- php-cs-fixer (first task applies fixes, second task simply checks if they are needed) -->
+  <target name="php-cs-fixer">
+    <exec command="${srcdir}/vendor/bin/php-cs-fixer fix --config=${srcdir}/tests/vufind.php_cs --verbose" passthru="true" escape="false" />
+  </target>
+  <target name="php-cs-fixer-dryrun">
+    <exec command="${srcdir}/vendor/bin/php-cs-fixer fix --config=${srcdir}/tests/vufind.php_cs --dry-run --verbose --diff" passthru="true" escape="false" checkreturn="true" />
+  </target>
+
+  <!-- PHP API Documentation -->
+  <target name="phpdoc">
+    <!-- GET phpDocumentor.phar -->
+    <if>
+      <not><available file="${srcdir}/vendor/bin/phpDocumentor-${phpdoc_version}.phar" /></not>
+      <then>
+        <httpget followRedirects="true" url="https://github.com/phpDocumentor/phpDocumentor2/releases/download/v${phpdoc_version}/phpDocumentor.phar" dir="${srcdir}/vendor/bin" filename="phpDocumentor-${phpdoc_version}.phar" />
+        <chmod mode="0755">
+          <fileset dir="${srcdir}/vendor/bin">
+            <include name="phpDocumentor-${phpdoc_version}.phar" />
+          </fileset>
+        </chmod>
+      </then>
+    </if>
+    <!-- Run phpdoc -->
+    <mkdir dir="${builddir}/apidocs" />
+    <phpdoc2 title="VuFindDate API Documentation"
+      pharlocation="${srcdir}/vendor/bin/phpDocumentor-${phpdoc_version}.phar"
+      destdir="${builddir}/apidocs">
+      <fileset dir=".">
+        <include name="src/**/*.php" />
+      </fileset>
+    </phpdoc2>
+  </target>
+
+  <!-- PHPUnit -->
+  <target name="phpunit" description="Run tests">
+    <exec dir="${srcdir}/tests" command="${srcdir}/vendor/bin/phpunit -dzend.enable_gc=0 --log-junit ${builddir}/reports/phpunit.xml --coverage-clover ${builddir}/reports/coverage/clover.xml --coverage-html ${builddir}/reports/coverage/" passthru="true" checkreturn="true" />
+  </target>
+
+  <!-- PHPUnit without logging output -->
+  <target name="phpunitfast" description="Run tests">
+    <exec dir="${srcdir}/tests" command="${srcdir}/vendor/bin/phpunit -dzend.enable_gc=0" passthru="true" checkreturn="true" />
+  </target>
+
+  <!-- Set up dependencies -->
+  <target name="startup" description="set up dependencies">
+    <exec command="composer install" />
+  </target>
+
+  <!-- Clean up -->
+  <target name="shutdown" description="clean up file system">
+    <delete dir="${srcdir}/vendor" includeemptydirs="true" failonerror="true" />
+    <delete file="${srcdir}/composer.lock" failonerror="true" />
+    <exec command="git reset --hard" />
+  </target>
+</project>
