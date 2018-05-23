@@ -28,8 +28,7 @@
 namespace VuFindTest\Date;
 
 use VuFind\Date\Converter;
-use VuFind\Exception\Date as DateException;
-use Zend\Config\Config;
+use VuFind\Date\DateException;
 
 /**
  * VuFindDate Test Class
@@ -40,11 +39,8 @@ use Zend\Config\Config;
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org Main Page
  */
-class ConverterTest extends \VuFindTest\Unit\TestCase
+class ConverterTest extends \PHPUnit\Framework\TestCase
 {
-    protected $savedDateFormat = null;
-    protected $savedTimeFormat = null;
-
     /**
      * Test citation generation
      *
@@ -74,7 +70,7 @@ class ConverterTest extends \VuFindTest\Unit\TestCase
     {
         // Build an object to test with (using empty configuration to ensure default
         // settings):
-        $date = new Converter(new Config([]));
+        $date = new Converter();
 
         // Try some conversions:
         $this->assertEquals(

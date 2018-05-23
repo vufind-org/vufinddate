@@ -30,7 +30,6 @@ namespace VuFind\Date;
 
 use DateTime;
 use DateTimeZone;
-use VuFind\Exception\Date as DateException;
 
 /**
  * Date/time conversion functionality.
@@ -68,24 +67,18 @@ class Converter
     /**
      * Constructor
      *
-     * @param \Zend\Config\Config $config Configuration to use (set to null to use
-     * defaults)
+     * @param array $config Configuration to use (omit to use defaults)
      */
-    public function __construct($config = null)
+    public function __construct(array $config = [])
     {
         // Set Display Date Format
-        $this->displayDateFormat
-            = isset($config->Site->displayDateFormat)
-            ? $config->Site->displayDateFormat : "m-d-Y";
+        $this->displayDateFormat = $config['displayDateFormat'] ?? "m-d-Y";
 
         // Set Display Date Format
-        $this->displayTimeFormat
-            = isset($config->Site->displayTimeFormat)
-            ? $config->Site->displayTimeFormat : "H:i";
+        $this->displayTimeFormat = $config['displayTimeFormat'] ?? "H:i";
 
         // Set time zone
-        $zone = isset($config->Site->timezone)
-            ? $config->Site->timezone : 'America/New_York';
+        $zone = $config['timezone'] ?? 'America/New_York';
         $this->timezone = new DateTimeZone($zone);
     }
 
