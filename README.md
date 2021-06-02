@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/vufind-org/vufinddate.svg?branch=dev)](https://travis-ci.com/vufind-org/vufinddate)
+[![CI Status](https://github.com/vufind-org/vufinddate/actions/workflows/ci.yaml/badge.svg?branch=dev)](https://github.com/vufind-org/vufinddate/actions/workflows/ci.yaml)
 VuFindDate
 ==========
 
