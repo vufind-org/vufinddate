@@ -22,6 +22,7 @@
  * @category VuFind
  * @package  Tests
  * @author   Demian Katz <demian.katz@villanova.edu>
+ * @author   Ere Maijala <ere.maijala@helsinki.fi>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org Main Page
  */
@@ -36,6 +37,7 @@ use VuFind\Date\DateException;
  * @category VuFind
  * @package  Tests
  * @author   Demian Katz <demian.katz@villanova.edu>
+ * @author   Ere Maijala <ere.maijala@helsinki.fi>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org Main Page
  */
@@ -123,6 +125,15 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(
             '01-2001', $date->convertFromDisplayDate('m-Y', '01-02-2001')
         );
+        $usDateTime = new \DateTime('now', new \DateTimeZone('America/New_York'));
+        $this->assertEquals(
+            $usDateTime->format('Y-m-d H:i:s'),
+            $date->convert('U', 'Y-m-d H:i:s', $usDateTime->getTimestamp())
+        );
+        $dateTime = $date->convertToDateTime('U', $usDateTime->getTimestamp());
+        $this->assertInstanceOf(\DateTime::class, $dateTime);
+        $this->assertEquals('America/New_York', $dateTime->getTimezone()->getName());
+        $this->assertEquals('America/New_York', $date->getTimeZone()->getName());
 
         // Check for proper handling of known problems:
         try {
@@ -153,5 +164,6 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
             '29-11-1973--23:34:39',
             $date2->convertToDisplayDateAndTime('U', 123456879, '--')
         );
+        $this->assertEquals('Europe/Helsinki', $date2->getTimeZone()->getName());
     }
 }

@@ -23,6 +23,7 @@
  * @package  Date
  * @author   Demian Katz <demian.katz@villanova.edu>
  * @author   Luke O'Sullivan <l.osullivan@swansea.ac.uk>
+ * @author   Ere Maijala <ere.maijala@helsinki.fi>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org/wiki/development Wiki
  */
@@ -38,6 +39,7 @@ use DateTimeZone;
  * @package  Date
  * @author   Demian Katz <demian.katz@villanova.edu>
  * @author   Luke O'Sullivan <l.osullivan@swansea.ac.uk>
+ * @author   Ere Maijala <ere.maijala@helsinki.fi>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org/wiki/development Wiki
  */
@@ -94,6 +96,22 @@ class Converter
      */
     public function convert($inputFormat, $outputFormat, $dateString)
     {
+        $date = $this->convertToDateTime($inputFormat, $dateString);
+        return $date->format($outputFormat);
+    }
+
+    /**
+     * Generic method for conversion of a time / date string to a DateTime
+     *
+     * @param string $inputFormat  The format of the time string to be changed
+     * @param string $outputFormat The desired output format
+     * @param string $dateString   The date string
+     *
+     * @throws DateException
+     * @return DateTime            A DateTime object
+     */
+    public function convertToDateTime($inputFormat, $dateString)
+    {
         // These are date formats that we definitely know how to handle, and some
         // benefit from special processing. However, items not found in this list
         // will still be attempted in a generic fashion before giving up.
@@ -132,7 +150,7 @@ class Converter
 
         if ($errors['warning_count'] == 0 && $errors['error_count'] == 0 && $date) {
             $date->setTimeZone($this->timezone);
-            return $date->format($outputFormat);
+            return $date;
         }
         throw new DateException($this->getDateExceptionMessage($errors));
     }
@@ -237,5 +255,15 @@ class Converter
     ) {
         return $this->convertToDisplayTime($createFormat, $timeString)
             . $separator . $this->convertToDisplayDate($createFormat, $timeString);
+    }
+
+    /**
+     * Get the active time zone
+     *
+     * @return DateTimeZone
+     */
+    public function getTimeZone(): DateTimeZone
+    {
+        return $this->timezone;
     }
 }
