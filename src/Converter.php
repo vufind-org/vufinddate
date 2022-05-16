@@ -103,12 +103,11 @@ class Converter
     /**
      * Generic method for conversion of a time / date string to a DateTime
      *
-     * @param string $inputFormat  The format of the time string to be changed
-     * @param string $outputFormat The desired output format
-     * @param string $dateString   The date string
+     * @param string $inputFormat The format of the time string to be changed
+     * @param string $dateString  The date string
      *
      * @throws DateException
-     * @return DateTime            A DateTime object
+     * @return DateTime           A DateTime object
      */
     public function convertToDateTime($inputFormat, $dateString)
     {
