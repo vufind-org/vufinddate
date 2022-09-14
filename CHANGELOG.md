@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-- Nothing.
+- The minimum PHP version requirement has been raised to 7.4.1.
 
 ### Deprecated
 
