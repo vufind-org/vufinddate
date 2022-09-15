@@ -142,7 +142,9 @@ class Converter
             }
         } else {
             $date = DateTime::createFromFormat(
-                $inputFormat, $dateString, $this->timezone
+                $inputFormat,
+                $dateString,
+                $this->timezone
             );
             $errors = DateTime::getLastErrors();
         }
@@ -203,7 +205,9 @@ class Converter
     public function convertFromDisplayDate($outputFormat, $displayDate)
     {
         return $this->convert(
-            $this->displayDateFormat, $outputFormat, $displayDate
+            $this->displayDateFormat,
+            $outputFormat,
+            $displayDate
         );
     }
 
@@ -232,7 +236,9 @@ class Converter
      * @throws DateException
      * @return string               A re-formatted time string
      */
-    public function convertToDisplayDateAndTime($createFormat, $timeString,
+    public function convertToDisplayDateAndTime(
+        $createFormat,
+        $timeString,
         $separator = ' '
     ) {
         return $this->convertToDisplayDate($createFormat, $timeString)
@@ -249,7 +255,9 @@ class Converter
      * @throws DateException
      * @return string               A re-formatted time string
      */
-    public function convertToDisplayTimeAndDate($createFormat, $timeString,
+    public function convertToDisplayTimeAndDate(
+        $createFormat,
+        $timeString,
         $separator = ' '
     ) {
         return $this->convertToDisplayTime($createFormat, $timeString)
