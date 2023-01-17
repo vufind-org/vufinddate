@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## Next Release - TBD
+## 1.2.0 - 2023-01-17
 
 ### Added
 
@@ -22,7 +22,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- Improved compatibility with PHP 8.2 (see #6).
 
 ## 1.1.0 - 2022-05-16
 
