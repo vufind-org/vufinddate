@@ -149,7 +149,10 @@ class Converter
             $errors = DateTime::getLastErrors();
         }
 
-        if ($errors['warning_count'] == 0 && $errors['error_count'] == 0 && $date) {
+        if (($errors === false
+            || ($errors['warning_count'] == 0 && $errors['error_count'] == 0))
+            && $date
+        ) {
             $date->setTimeZone($this->timezone);
             return $date;
         }
