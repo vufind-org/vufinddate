@@ -1,4 +1,5 @@
 <?php
+
 /**
  * VuFindDate Test Class
  *
@@ -26,6 +27,7 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     https://vufind.org Main Page
  */
+
 namespace VuFindTest\Date;
 
 use VuFind\Date\Converter;
@@ -76,54 +78,68 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
 
         // Try some conversions:
         $this->assertEquals(
-            '11-29-1973', $date->convertToDisplayDate('U', 123456879)
+            '11-29-1973',
+            $date->convertToDisplayDate('U', 123456879)
         );
         $this->assertEquals(
-            '11-29-1973', $date->convertToDisplayDate('U', 123456879.1234)
+            '11-29-1973',
+            $date->convertToDisplayDate('U', 123456879.1234)
         );
         $this->assertEquals(
             '11-29-1973--16:34',
             $date->convertToDisplayDateAndTime('U', 123456879, '--')
         );
         $this->assertEquals(
-            '16:34 11-29-1973', $date->convertToDisplayTimeAndDate('U', 123456879)
+            '16:34 11-29-1973',
+            $date->convertToDisplayTimeAndDate('U', 123456879)
         );
         $this->assertEquals(
-            '11-29-1973', $date->convertToDisplayDate('m-d-y', '11-29-73')
+            '11-29-1973',
+            $date->convertToDisplayDate('m-d-y', '11-29-73')
         );
         $this->assertEquals(
-            '11-29-1973', $date->convertToDisplayDate('m-d-y', '11-29-1973')
+            '11-29-1973',
+            $date->convertToDisplayDate('m-d-y', '11-29-1973')
         );
         $this->assertEquals(
-            '11-29-1973', $date->convertToDisplayDate('m-d-y H:i', '11-29-73 23:01')
+            '11-29-1973',
+            $date->convertToDisplayDate('m-d-y H:i', '11-29-73 23:01')
         );
         $this->assertEquals(
-            '23:01', $date->convertToDisplayTime('m-d-y H:i', '11-29-73 23:01')
+            '23:01',
+            $date->convertToDisplayTime('m-d-y H:i', '11-29-73 23:01')
         );
         $this->assertEquals(
-            '01-02-2001', $date->convertToDisplayDate('m-d-y', '01-02-01')
+            '01-02-2001',
+            $date->convertToDisplayDate('m-d-y', '01-02-01')
         );
         $this->assertEquals(
-            '01-02-2001', $date->convertToDisplayDate('m-d-y', '01-02-2001')
+            '01-02-2001',
+            $date->convertToDisplayDate('m-d-y', '01-02-2001')
         );
         $this->assertEquals(
-            '01-02-2001', $date->convertToDisplayDate('m-d-y H:i', '01-02-01 05:11')
+            '01-02-2001',
+            $date->convertToDisplayDate('m-d-y H:i', '01-02-01 05:11')
         );
         $this->assertEquals(
-            '05:11', $date->convertToDisplayTime('m-d-y H:i', '01-02-01 05:11')
+            '05:11',
+            $date->convertToDisplayTime('m-d-y H:i', '01-02-01 05:11')
         );
         $this->assertEquals(
-            '01-02-2001', $date->convertToDisplayDate('Y-m-d', '2001-01-02')
+            '01-02-2001',
+            $date->convertToDisplayDate('Y-m-d', '2001-01-02')
         );
         $this->assertEquals(
             '01-02-2001',
             $date->convertToDisplayDate('Y-m-d H:i', '2001-01-02 05:11')
         );
         $this->assertEquals(
-            '05:11', $date->convertToDisplayTime('Y-m-d H:i', '2001-01-02 05:11')
+            '05:11',
+            $date->convertToDisplayTime('Y-m-d H:i', '2001-01-02 05:11')
         );
         $this->assertEquals(
-            '01-2001', $date->convertFromDisplayDate('m-Y', '01-02-2001')
+            '01-2001',
+            $date->convertFromDisplayDate('m-Y', '01-02-2001')
         );
         $usDateTime = new \DateTime('now', new \DateTimeZone('America/New_York'));
         $this->assertEquals(
