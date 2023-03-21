@@ -173,7 +173,7 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
         $options = [
             'displayDateFormat' => 'd-m-Y',
             'displayTimeFormat' => 'H:i:s',
-            'timezone' => 'Europe/Helsinki'
+            'timezone' => 'Europe/Helsinki',
         ];
         $date2 = new Converter($options);
         $this->assertEquals(
