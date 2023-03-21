@@ -118,7 +118,7 @@ class Converter
         // will still be attempted in a generic fashion before giving up.
         $validFormats = [
             "m-d-Y", "m-d-y", "m/d/Y", "m/d/y", "U", "m-d-y H:i", "Y-m-d",
-            "Y-m-d H:i"
+            "Y-m-d H:i",
         ];
         $isValid = in_array($inputFormat, $validFormats);
         if ($isValid) {
@@ -134,7 +134,7 @@ class Converter
                 $dateString = trim(preg_replace($regEx, '$1/$3/$5', $dateString));
             }
             $errors = [
-                'warning_count' => 0, 'error_count' => 0, 'errors' => []
+                'warning_count' => 0, 'error_count' => 0, 'errors' => [],
             ];
             try {
                 $date = new DateTime($dateString, $this->timezone);
