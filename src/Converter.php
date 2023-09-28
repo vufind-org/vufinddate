@@ -34,6 +34,11 @@ namespace VuFind\Date;
 use DateTime;
 use DateTimeZone;
 
+use function in_array;
+use function intval;
+use function is_array;
+use function is_float;
+
 /**
  * Date/time conversion functionality.
  *
@@ -76,10 +81,10 @@ class Converter
     public function __construct(array $config = [])
     {
         // Set Display Date Format
-        $this->displayDateFormat = $config['displayDateFormat'] ?? "m-d-Y";
+        $this->displayDateFormat = $config['displayDateFormat'] ?? 'm-d-Y';
 
         // Set Display Date Format
-        $this->displayTimeFormat = $config['displayTimeFormat'] ?? "H:i";
+        $this->displayTimeFormat = $config['displayTimeFormat'] ?? 'H:i';
 
         // Set time zone
         $zone = $config['timezone'] ?? 'America/New_York';
@@ -117,8 +122,8 @@ class Converter
         // benefit from special processing. However, items not found in this list
         // will still be attempted in a generic fashion before giving up.
         $validFormats = [
-            "m-d-Y", "m-d-y", "m/d/Y", "m/d/y", "U", "m-d-y H:i", "Y-m-d",
-            "Y-m-d H:i",
+            'm-d-Y', 'm-d-y', 'm/d/Y', 'm/d/y', 'U', 'm-d-y H:i', 'Y-m-d',
+            'Y-m-d H:i',
         ];
         $isValid = in_array($inputFormat, $validFormats);
         if ($isValid) {
@@ -171,14 +176,14 @@ class Converter
      */
     protected function getDateExceptionMessage($details)
     {
-        $errors = "Date/time problem: Details: ";
+        $errors = 'Date/time problem: Details: ';
         if (is_array($details['errors']) && $details['error_count'] > 0) {
             foreach ($details['errors'] as $error) {
-                $errors .= $error . " ";
+                $errors .= $error . ' ';
             }
         } elseif (is_array($details['warnings'])) {
             foreach ($details['warnings'] as $warning) {
-                $errors .= $warning . " ";
+                $errors .= $warning . ' ';
             }
         }
         return $errors;
