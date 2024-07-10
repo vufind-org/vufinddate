@@ -78,8 +78,8 @@
       <arg line="--configuration=${srcdir}/tests/phpstan.neon --memory-limit=2G --error-format=checkstyle analyse &gt; ${builddir}/reports/phpstan-checkstyle.xml" />
     </exec>
   </target>
-  <target name="phpstan-console" escape="false" passthru="true" checkreturn="true">
-    <exec executable="${srcdir}/vendor/bin/phpstan"> 
+  <target name="phpstan-console">
+    <exec executable="${srcdir}/vendor/bin/phpstan" escape="false" passthru="true" checkreturn="true"> 
       <arg line="--configuration=${srcdir}/tests/phpstan.neon --memory-limit=2G analyse" />
     </exec>  
   </target>
