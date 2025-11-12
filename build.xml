@@ -95,6 +95,18 @@
       <arg line="fix --config=${srcdir}/tests/vufind.php-cs-fixer.php --dry-run --verbose --diff" />
     </exec>  
   </target>
+  
+  <!-- Rector -->
+  <target name="rector-console">
+    <exec executable="${srcdir}/vendor/bin/rector" escape="false" passthru="true" checkreturn="true">
+      <arg line="--config=${srcdir}/tests/rector.php --dry-run" />
+    </exec>
+  </target>
+  <target name="rector">
+    <exec executable="${srcdir}/vendor/bin/rector" escape="false" passthru="true" checkreturn="true">
+      <arg line="--config=${srcdir}/tests/rector.php" />
+    </exec>
+  </target>
 
   <!-- PHP API Documentation -->
   <target name="phpdoc">
