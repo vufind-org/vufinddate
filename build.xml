@@ -38,6 +38,7 @@
     <phingcall target="phpmd"/>
     <phingcall target="pdepend"/>
     <phingcall target="phpstan-checkstyle"/>
+    <phingcall target="rector-console"/>
   </target>
 
   <!-- Report rule violations with PHPMD (mess detector) -->
