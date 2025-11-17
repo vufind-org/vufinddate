@@ -5,8 +5,8 @@ $finder->in(__DIR__)
     ->in(__DIR__ . '/../src');
 
 $rules = [
-    '@PHP81Migration' => true,
-    '@PHPUnit100Migration:risky' => true,
+    '@PHP8x1Migration' => true,
+    '@PHPUnit10x0Migration:risky' => true,
     '@PSR12' => true,
     'align_multiline_comment' => true,
     'binary_operator_spaces' => [
