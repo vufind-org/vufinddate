@@ -1,7 +1,7 @@
 <?php
 
 /**
- * VuFindDate Test Class
+ * VuFindDate Test Class.
  *
  * PHP version 7
  *
@@ -34,7 +34,7 @@ use VuFind\Date\Converter;
 use VuFind\Date\DateException;
 
 /**
- * VuFindDate Test Class
+ * VuFindDate Test Class.
  *
  * @category VuFind
  * @package  Tests
@@ -46,7 +46,7 @@ use VuFind\Date\DateException;
 class ConverterTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * Test citation generation
+     * Test citation generation.
      *
      * @return void
      */
@@ -66,7 +66,7 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Support method for testDates()
+     * Support method for testDates().
      *
      * @return void
      */
