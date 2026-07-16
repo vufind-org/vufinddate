@@ -53,28 +53,28 @@ use function is_float;
 class Converter
 {
     /**
-     * Format string for dates
+     * Format string for dates.
      *
      * @var string
      */
     protected $displayDateFormat;
 
     /**
-     * Format string for times
+     * Format string for times.
      *
      * @var string
      */
     protected $displayTimeFormat;
 
     /**
-     * Time zone to use for conversions
+     * Time zone to use for conversions.
      *
      * @var DateTimeZone
      */
     protected $timezone;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param array $config Configuration to use (omit to use defaults)
      */
@@ -92,7 +92,7 @@ class Converter
     }
 
     /**
-     * Generic method for conversion of a time / date string
+     * Generic method for conversion of a time / date string.
      *
      * @param string $inputFormat  The format of the time string to be changed
      * @param string $outputFormat The desired output format
@@ -108,7 +108,7 @@ class Converter
     }
 
     /**
-     * Generic method for conversion of a time / date string to a DateTime
+     * Generic method for conversion of a time / date string to a DateTime.
      *
      * @param string $inputFormat The format of the time string to be changed
      * @param string $dateString  The date string
@@ -205,7 +205,7 @@ class Converter
 
     /**
      * Public method for conversion of an admin defined date string
-     * to a driver required date string
+     * to a driver required date string.
      *
      * @param string $outputFormat The format of the required date string
      * @param string $displayDate  The display formatted date string
@@ -276,7 +276,7 @@ class Converter
     }
 
     /**
-     * Get the active time zone
+     * Get the active time zone.
      *
      * @return DateTimeZone
      */

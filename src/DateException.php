@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Date Exception
+ * Date Exception.
  *
  * PHP version 7
  *
@@ -30,7 +30,7 @@
 namespace VuFind\Date;
 
 /**
- * Date Exception
+ * Date Exception.
  *
  * @category VuFind
  * @package  Date
